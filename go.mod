@@ -7,7 +7,6 @@ require (
 	azugo.io/core v0.23.0
 	github.com/golang-jwt/jwt/v5 v5.2.2
 	github.com/spf13/viper v1.20.1
-	github.com/valyala/fasthttp v1.62.0
 	go.uber.org/zap v1.27.0
 )
 
@@ -48,6 +47,7 @@ require (
 	github.com/spf13/pflag v1.0.6 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
+	github.com/valyala/fasthttp v1.62.0 // indirect
 	github.com/valyala/fastrand v1.1.0 // indirect
 	go.elastic.co/ecszap v1.0.3 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
