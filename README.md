@@ -11,14 +11,14 @@ This project is built using the [Azugo Go Web Framework](https://azugo.io), a po
 Add dependency
 
 ```sh
-go get -u github.com/nobid-lsp-latvia/go-idauth
+go get -u github.com/digimaks/go-idauth
 ```
 
 Add configuration section
 
 ```go
 import (
-    "github.com/nobid-lsp-latvia/go-idauth"
+    "github.com/digimaks/go-idauth"
 )
 
 type Configuration struct {
@@ -51,7 +51,7 @@ func (c *Configuration) Validate(validate *validation.Validate) error {
 Add initialization
 ```go
 import (
-    "github.com/nobid-lsp-latvia/go-idauth"
+    "github.com/digimaks/go-idauth"
 )
 
 func (a *App) InitServices() error {
@@ -69,7 +69,7 @@ Add middleware for endpoints that need authentification
 
 ```go
 import (
-    "github.com/nobid-lsp-latvia/go-idauth"
+    "github.com/digimaks/go-idauth"
 )
 
 func Init(app *idauth.App) error {
@@ -83,7 +83,7 @@ Call GetSystemToken to get system token
 
 ```go
 import (
-    "github.com/nobid-lsp-latvia/go-idauth"
+    "github.com/digimaks/go-idauth"
 )
 
 token, err = c.systemTokenClient.GetSystemToken(ctx, "scope:level")
@@ -93,7 +93,7 @@ Bind `/1.0/token` and `/1.0/session` endpoints
 
 ```go
 import (
-    "github.com/nobid-lsp-latvia/go-idauth/authorization"
+    "github.com/digimaks/go-idauth/authorization"
 )
 
 func Init(app *idauth.App) error {

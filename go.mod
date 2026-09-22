@@ -1,4 +1,4 @@
-module github.com/nobid-lsp-latvia/go-idauth
+module github.com/digimaks/go-idauth
 
 go 1.23.9
 
