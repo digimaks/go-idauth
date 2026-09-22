@@ -9,7 +9,7 @@ linters-settings:
     custom-order: true
     sections:
       - standard
-      - prefix(github.com/nobid-lsp-latvia/go-idauth)
+      - prefix(github.com/digimaks/go-idauth)
       - default
 
 linters:

@@ -5,7 +5,7 @@ package authorization
 import (
 	"encoding/base64"
 
-	"github.com/nobid-lsp-latvia/go-idauth"
+	"github.com/digimaks/go-idauth"
 
 	"azugo.io/azugo"
 	"azugo.io/core/http"
