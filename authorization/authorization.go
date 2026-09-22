@@ -9,7 +9,6 @@ import (
 
 	"azugo.io/azugo"
 	"azugo.io/core/http"
-	"github.com/valyala/fasthttp"
 	"go.uber.org/zap"
 )
 
@@ -38,23 +37,22 @@ func Bind(g azugo.Router, config *idauth.Configuration) error {
 }
 
 func (r *router) token(ctx *azugo.Context) {
-	client := ctx.HTTPClient()
-
-	req := fasthttp.AcquireRequest()
-	defer fasthttp.ReleaseRequest(req)
-	ctx.Request().CopyTo(req)
-	req.SetRequestURI(r.config.URL + "/api/1.0/token")
-	req.Header.SetMethod("POST")
+	client := ctx.HTTPClient().WithOptions(&http.TLSConfig{
+		InsecureSkipVerify: true,
+	})
+	httpRequest := client.NewRequest()
+	defer client.ReleaseRequest(httpRequest)
+	ctx.Request().CopyTo(httpRequest.Request)
+	ctx.Log().Debug("Request to", zap.Any("req", (r.config.URL+"/api/1.0/token")))
+	httpRequest.SetRequestURI(r.config.URL + "/api/1.0/token")
+	httpRequest.Header.SetMethod("POST")
+	httpRequest.Header.SetProtocol("HTTP/1.1")
 
 	// Add the Authorization header
-	req.Header.Set("Authorization", BasicAuthHeader(r.config.ClientID, r.config.ClientSecret))
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	httpRequest.Header.Set("Authorization", BasicAuthHeader(r.config.ClientID, r.config.ClientSecret))
+	httpRequest.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
 	resp := &ctx.Context().Response
-
-	httpRequest := &http.Request{
-		Request: req,
-	}
 
 	httpResponse := &http.Response{
 		Response: resp,
@@ -67,7 +65,8 @@ func (r *router) token(ctx *azugo.Context) {
 
 		return
 	}
-
+	ctx.Log().Debug("Response ", zap.Any("res", httpResponse.Body()))
+	ctx.Log().Debug("Response status code", zap.Any("res", httpResponse.StatusCode()))
 	ctx.Raw(httpResponse.Body())
 	ctx.StatusCode(httpResponse.StatusCode())
 }
